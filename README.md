@@ -6,7 +6,7 @@
 	- [Zip](#zip)
 - [Configuration](#configuration)
 	- [Renommer le fichier de config](#renommer-le-fichier-de-config)
-	- [Éditez la configuration](#éditez-la-configuration)
+	- [Éditer la configuration](#éditer-la-configuration)
 		- [RELEASE\_MISSING\_IS\_NOW](#release_missing_is_now)
 		- [RELEASE\_MISSING\_INSERT](#release_missing_insert)
 		- [RELEASE\_MISSING\_SECTION](#release_missing_section)
@@ -22,24 +22,24 @@
 
 # PHP-PRETIME
 
-PHP pour les PRETIME, multiserveurs, utile par exemple pour les autostrades comme slftp afin de fournir les pretimes
+PHP pour les PRETIME, multiserveurs, utile par exemple pour les autotrades comme slftp afin de fournir les pretimes
 
 # Fonctionnalités
 
-* FIND PRETIME      : Retourne le temps (unixtime/timestamp) de la release depuis son le nom de release.
+* FIND PRETIME      : Retourne le temps (unixtime/timestamp) de la release depuis le nom de la release.
 * FIND WITH MULTI-SERVER (SELECT) : Recherche en cascade sur plusieurs serveurs MySQL, si nécessaire.
 * ADD IF MISSING (INSERT)   : Ajout facultatif de la release dans la/les base(s) des données si release manquante.
 * SEND TO EGGDROP (IF MISSING) : Envois facultatifs à un ou des Eggdrops en cas de release manquante
 
 # Explications
-Certaines autotrades ont besoin du pretime de la release pour fonctionner correctement,
-ce code lit une base de données mysql (non fournis) pour retourner la release et sa pretime sous forme:
+Certains autotrades ont besoin du pretime de la release pour fonctionner correctement,
+ce code lit une base de données mysql (non fournis) pour retourner la release et son pretime sous forme:
 `rlsname rlstime - -`
-Le plus de ce code est que si la première base de données MySQL ne contient pas les informations nécessaires, il peut consultés d'autres bases de données jusqu'à la trouver. 
+Le plus de ce code est que si la première base de données MySQL ne contient pas les informations nécessaires, il peut consulter d'autres bases de données jusqu'à la trouver. 
 
-Si toute fois, il ne repère sur aucun serveur, il peut réagir de différente manière configurable. 
+Si toutefois, il ne repère sur aucun serveur, il peut réagir de différente manière configurable. 
 Une configuration permet de fournir le temps actuel comme s’il avait trouvé pour que votre autotrade trade tout de même.
-Il peut également afficher sur un salon IRC la release manquante pour faire un !newdir, !getold, simplement un message d'avertissement, etc. Plusieurs robots Eggdrop peut-être paramétrés.
+Il peut également afficher sur un salon IRC la release manquante pour faire un !newdir, !getold, simplement un message d'avertissement, etc. Plusieurs robots Eggdrop peut être paramétrés.
 
 # Téléchargement
 ## Git
@@ -55,11 +55,11 @@ unzip master.zip
 # Configuration
 
 ## Renommer le fichier de config
-Vous devez renommer le fichier nommer `config.example.php` en `config.php`
+Vous devez renommer le fichier nommé `config.example.php` en `config.php`
 pour faire vous pouvez taper la commande dans votre terminal 
 
 ```mv config.example.php config.php```
-## Éditez la configuration
+## Éditer la configuration
 dans votre terminal ouvrer le fichier `config.php` avec votre éditeur préférer 
 
 ```nano config.php```
@@ -68,7 +68,7 @@ dans votre terminal ouvrer le fichier `config.php` avec votre éditeur préfére
 
 ### RELEASE_MISSING_IS_NOW
 
-Si la valeur de `$RELEASE_MISSING_IS_NOW` vaut `1`: si la release est introuvable dans les bases de données, il va faire croire qu’elle vient d'être PRE en communiquant l'unixtime actuelle
+Si la valeur de `$RELEASE_MISSING_IS_NOW` vaut `1`: si la release est introuvable dans les bases de données, il va faire croire qu’elle vient d'être PRE en communiquant l'unixtime actuel
 
 Si la valeur de `$RELEASE_MISSING_IS_NOW` vaut `0`: si la release est introuvable dans les bases de données, il ne va rien afficher
 
@@ -77,7 +77,7 @@ Si la valeur de `$RELEASE_MISSING_IS_NOW` vaut `0`: si la release est introuvabl
 ### RELEASE_MISSING_INSERT
 
 Si la valeur de `$RELEASE_MISSING_INSERT` vaut `1`: si la release est introuvable dans les bases de données,
-il va l'ajoute aux bases de données qui ont `$cfg['MySQL'][$m]['insert']` renseigné. Voir plus bas.
+il va l'ajouter aux bases de données qui ont été `$cfg['MySQL'][$m]['insert']` renseigné. Voir plus bas.
 
 Si la valeur de `$RELEASE_MISSING_INSERT` vaut `0`: si la release est introuvable dans les bases de données, il ne l'ajoute nulle part.
 
@@ -85,11 +85,11 @@ Si la valeur de `$RELEASE_MISSING_INSERT` vaut `0`: si la release est introuvabl
 
 ### RELEASE_MISSING_SECTION
 
-Si ça`$RELEASE_MISSING_INSERT` vaut 1, `$RELEASE_MISSING_SECTION` il contient le nom de la section avec laquelle il doit ajouter en SQL.
+Si la`$RELEASE_MISSING_INSERT` vaut 1, `$RELEASE_MISSING_SECTION` il contient le nom de la section avec laquelle il doit ajouter en SQL.
 
 ---
 ### $cfg['MySQL']
-Les variables`$cfg['MySQL']`, ça permet de configurer les bases de données. Cela fonction par bloc (ensemble) de variable `$cfg['MySQL']` par serveur vous devez avoir un bloc comme ceci: 
+Les variables`$cfg['MySQL']`,  cela permet de configurer les bases de données. Cela fonctionne par bloc (ensemble) de variable `$cfg['MySQL']` par serveur vous devez avoir un bloc comme ceci: 
 
 ```
     $m++;
@@ -106,13 +106,13 @@ Les variables`$cfg['MySQL']`, ça permet de configurer les bases de données. Ce
 Cette variable doit contenir la requête SELECT de SQL. observer le point d'interrogation ? Celle si représente la position de la release dans la requête
 
 #### $cfg['MySQL'][$m]['insert']
-seul `$cfg['MySQL'][$m]['insert']` est facultatif. si `$RELEASE_MISSING_INSERT` vaut `1` et cette variable est renseigné, il va ajouter grâce à la requête SQL en base de données.
-Remarquer les *quatres* points d'interrogation ?
-Le premier, corresponds la colonne de temps
-le deuxième représente la colonne de la release
-Le troisième représente la colonne de la section,
-le quatrième équivaut la colonne du nom de groupe de la release.
-Notez bien : l'ordre est important et  les *quatres* points d'interrogation doivent être fournis pour que cela fonctionne.
+seul `$cfg['MySQL'][$m]['insert']` est facultatif. si `$RELEASE_MISSING_INSERT` vaut `1` et cette variable est renseignée, il va ajouter grâce à la requête SQL en base de données.
+Remarquez les *quatres* points d'interrogation ?
+Le premier, correspond à la colonne de temps
+le deuxième représente à la colonne de la release
+Le troisième représente à la colonne de la section
+le quatrième équivaut à la colonne du nom de groupe de la release.
+Notez bien : l'ordre est important et les *quatres* points d'interrogation doivent être fournis pour que cela fonctionne.
 
 ### $cfg['Eggdrop']
 Les variables `$cfg['Eggdrop']` fonctionnent comme `$cfg['MySQL']` en bloc, chaque bloc représente la connexion à un Eggdrop
@@ -151,14 +151,14 @@ Modifier le bloc
 
 ---
 
-Choisissez un port libre, et n'oublier pas de mettre le même dans `$cfg['Eggdrop'][$e]['port']`. La même chose pour le password avec `$cfg['Eggdrop'][$e]['port']` de votre `config.php`
+Choisissez un port libre, et n'oubliez pas de mettre le même dans `$cfg['Eggdrop'][$e]['port']`. La même chose pour le password avec `$cfg['Eggdrop'][$e]['port']` de votre `config.php`
 
 ---
 
-Le `channel` peut-être un salon IRC où ce trouve votre Eggdrop ou un pseudonyme, le votre par exemple pour recevoir les messages en privée.
+Le `channel` peut-être un salon IRC où se trouve votre Eggdrop ou un pseudonyme, le votre par exemple pour recevoir les messages en privé.
 
 # Bogues, idées, remarques
-Pour faire évoluer le projet, vous pouvez créer [un issue ici](https://github.com/ZarTek-Creole/PHP-PRETIME/issues/new )
+Pour faire évoluer le projet, vous pouvez créer [une issue ici](https://github.com/ZarTek-Creole/PHP-PRETIME/issues/new )
 
 # Contribution
 
