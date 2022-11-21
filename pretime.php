@@ -15,7 +15,4 @@ ini_set("display_errors", 1);
         RLS_isMissing( $cfg, $rlsname );
         sendToLEgg( $cfg, $rlsname );
     }
-	
-
-
 ?>
