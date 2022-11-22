@@ -24,7 +24,7 @@ proc ::LEGG::CORE { idx args } {
 	set message		[lrange ${arg} 1 end]
 	if { [string match ${password} ${CONF(password)}] } {
 		putquick "PRIVMSG ${CONF(channel)} :${message}"   
-		putdcc ${idx}"OK: ${message}"
+		putdcc ${idx} "OK: ${message}"
 	}
 	killdcc ${idx}
 }
