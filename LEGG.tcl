@@ -17,6 +17,7 @@ namespace eval ::LEGG {
 		"auteur"			"ZarTek-Creole"
 	}
 }
+
 proc ::LEGG::CORE { idx args } {
 	variable CONF
 	set arg			[join ${args}]
@@ -32,7 +33,7 @@ proc ::LEGG::CORE { idx args } {
 proc ::LEGG::slisten { idx } {
 	putlog "LEGG: Connection ${idx}"
 	putdcc ${idx} "Welcome"
-    control ${idx} ::LEGG::CORE
+	control ${idx} ::LEGG::CORE
 }
 
 proc ::LEGG::init {args} {
@@ -48,4 +49,5 @@ proc ::LEGG::uninstall {args} {
 	}
 	namespace delete ::LEGG
 }
+
 ::LEGG::init

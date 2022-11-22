@@ -28,7 +28,7 @@ Utile pour les autostrades comme slftp, ...
 
 # Fonctionnalités
 
-* FIND PRETIME      : Retourne le temps (unixtime/timestamp) de la release depuis le nom de la release.
+* FIND PRETIME	  : Retourne le temps (unixtime/timestamp) de la release depuis le nom de la release.
 * FIND WITH MULTI-SERVER (SELECT) : Recherche en cascade sur plusieurs serveurs MySQL, si nécessaire.
 * ADD IF MISSING (INSERT)   : Ajout facultatif de la release dans la/les base(s) des données si release manquante.
 * SEND TO EGGDROP (IF MISSING) : Envois facultatifs à un ou des Eggdrops en cas de release manquante
@@ -96,12 +96,12 @@ Si `$RELEASE_MISSING_INSERT` vaut 1, et que `$RELEASE_MISSING_SECTION` contient 
 Les variables `$cfg['MySQL']`, permetent de configurer les bases de données. Cela fonctionne par bloc (ensemble) de variables `$cfg['MySQL']` et par serveur vous devez avoir un bloc qui ressemble comme ceci: 
 
 ```
-    $m++;
+	$m++;
 	$cfg['MySQL'][$m]['host']		= 'localhost';
 	$cfg['MySQL'][$m]['user']		= 'root';
 	$cfg['MySQL'][$m]['password']   = '';
 	$cfg['MySQL'][$m]['db'] 		= 'predb';
-	$cfg['MySQL'][$m]['port'] 	    = '3306';
+	$cfg['MySQL'][$m]['port'] 		= '3306';
 	$cfg['MySQL'][$m]['select'] 	= 'SELECT `rlsname`, `time` FROM `scene` WHERE `rlsname` = ? LIMIT 1;';
 	$cfg['MySQL'][$m]['insert'] 	= "INSERT IGNORE INTO `scene` (`time`, `rlsname`, `section`, `grp`) VALUES (?, ?, ?, ?)";
 ```
@@ -127,16 +127,16 @@ Notez bien : l'ordre est important et  les *quatres* points d'interrogation doiv
 Les variables `$cfg['Eggdrop']` fonctionnent comme `$cfg['MySQL']` en ensemble, chaque bloc de variables représente la connexion à un Eggdrop
 
 ```
-    $e = 0;
-    // Congiguration du/des serveur(s) Eggdrops
+	$e = 0;
+	// Congiguration du/des serveur(s) Eggdrops
 
-    /** Eggdrop LEGG 1 */ 
-    $e++;
-    $cfg['Eggdrop'][$e]['host']     = '127.0.0.1';
-    $cfg['Eggdrop'][$e]['port']     = '6666';
-    $cfg['Eggdrop'][$e]['password'] = 'MyPasswordLEgg';
-    $cfg['Eggdrop'][$e]['message']  = '!addpre %rlsname% AUTOADD';
-    $cfg['Eggdrop'][$e]['sleep']    = 1;
+	/** Eggdrop LEGG 1 */ 
+	$e++;
+	$cfg['Eggdrop'][$e]['host']	 = '127.0.0.1';
+	$cfg['Eggdrop'][$e]['port']	 = '6666';
+	$cfg['Eggdrop'][$e]['password'] = 'MyPasswordLEgg';
+	$cfg['Eggdrop'][$e]['message']  = '!addpre %rlsname% AUTOADD';
+	$cfg['Eggdrop'][$e]['sleep']	= 1;
 ```
 
 #### $cfg['Eggdrop'][$e]['message']
