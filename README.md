@@ -28,7 +28,7 @@ Utile pour les autostrades comme slftp, ...
 
 # Fonctionnalités
 
-* FIND PRETIME      : Retourne le temps (unixtime/timestamp) de la release depuis son le nom de release.
+* FIND PRETIME      : Retourne le temps (unixtime/timestamp) de la release depuis le nom de la release.
 * FIND WITH MULTI-SERVER (SELECT) : Recherche en cascade sur plusieurs serveurs MySQL, si nécessaire.
 * ADD IF MISSING (INSERT)   : Ajout facultatif de la release dans la/les base(s) des données si release manquante.
 * SEND TO EGGDROP (IF MISSING) : Envois facultatifs à un ou des Eggdrops en cas de release manquante
