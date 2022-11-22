@@ -17,20 +17,28 @@ namespace eval ::LEGG {
 		"auteur"			"ZarTek-Creole"
 	}
 }
-proc ::LEGG::CORE {idx password args} {
+proc ::LEGG::CORE { idx args } {
 	variable CONF
-    if { [string match $password $CONF(password)] } {
-        putquick "PRIVMSG $CONF(channel) :$args"
-    }
+	set arg			[join ${args}]
+	set password	[lindex ${arg} 0]
+	set message		[lrange ${arg} 1 end]
+	if { [string match ${password} ${CONF(password)}] } {
+		putquick "PRIVMSG ${CONF(channel)} :${message}"   
+		putdcc ${idx}"OK: ${message}"
+	}
+	killdcc ${idx}
 }
-proc ::LEGG::listen {idx} {
+
+proc ::LEGG::slisten { idx } {
+	putlog "LEGG: Connection ${idx}"
+	putdcc ${idx} "Welcome"
     control ${idx} ::LEGG::CORE
 }
 
 proc ::LEGG::init {args} {
-    variable CONF
-    listen ${CONF(port)} ::LEGG::listen
-    putlog [format "Chargement de LEGG (%s) version %s by %s" ${::LEGG::SCRIPT(name)} ${::LEGG::SCRIPT(version)} ${::LEGG::SCRIPT(auteur)}]
+	variable CONF
+	listen ${CONF(port)} script ::LEGG::slisten
+	putlog [format "Chargement de LEGG (%s) version %s by %s" ${::LEGG::SCRIPT(name)} ${::LEGG::SCRIPT(version)} ${::LEGG::SCRIPT(auteur)}]
 }
 
 proc ::LEGG::uninstall {args} {
