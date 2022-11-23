@@ -14,7 +14,7 @@ namespace eval ::LEGG {
 	array set SCRIPT {
 		"name"				"Listen Eggdrop"
 		"version"			"0.0.1"
-		"auteur"			"ZarTek-Creole"
+		"Auteur"			"ZarTek-Creole"
 	}
 }
 
@@ -44,7 +44,7 @@ proc ::LEGG::slisten { idx } {
 proc ::LEGG::init { } {
     variable CONF
     listen ${CONF(port)} script ::LEGG::slisten
-    putlog [format "Chargement de LEGG (%s) version %s by %s" ${::LEGG::SCRIPT(name)} ${::LEGG::SCRIPT(version)} ${::LEGG::SCRIPT(auteur)}]
+    putlog [format "Chargement de LEGG (%s) version %s by %s" ${::LEGG::SCRIPT(name)} ${::LEGG::SCRIPT(version)} ${::LEGG::SCRIPT(Auteur)}]
 }
 
 proc ::LEGG::uninstall { args } {

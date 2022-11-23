@@ -7,9 +7,9 @@
 - [Configuration](#configuration)
 	- [Renommer le fichier de config](#renommer-le-fichier-de-config)
 	- [Éditez la configuration](#éditez-la-configuration)
-		- [RELEASE\_MISSING\_IS\_NOW](#release_missing_is_now)
-		- [RELEASE\_MISSING\_INSERT](#release_missing_insert)
-		- [RELEASE\_MISSING\_SECTION](#release_missing_section)
+		- [RELEASE\_MISSING\_IS\_NOW](#NO_TIME_IS_NOW)
+		- [RELEASE\_MISSING\_INSERT](#NO_RELEASE_INSERT_NOW)
+		- [RELEASE\_MISSING\_SECTION](#NO_RELEASE_SECTION_NAME)
 		- [$cfg\['MySQL'\]](#cfgmysql)
 			- [$cfg\['MySQL'\]\[$m\]\['select'\]](#cfgmysqlmselect)
 			- [$cfg\['MySQL'\]\[$m\]\['insert'\]](#cfgmysqlminsert)
@@ -70,26 +70,26 @@ Dans le terminal ouvrer le fichier `config.php` avec votre éditeur préférer
 
 ---
 
-### RELEASE_MISSING_IS_NOW
+### NO_TIME_IS_NOW
 
-Si la valeur de `$RELEASE_MISSING_IS_NOW` vaut `1` et que la release est introuvable dans les bases de données, il va faire croire qu’elle vient d'être PRE en communiquant l'unixtime actuelle.
+Si la valeur de `$NO_TIME_IS_NOW` vaut `1` et que la release est introuvable dans les bases de données, il va faire croire qu’elle vient d'être PRE en communiquant l'unixtime actuelle.
 
-Si par contre la valeur de `$RELEASE_MISSING_IS_NOW` vaut `0` et que release est introuvable dans les bases de données, il ne va rien afficher du tout.
+Si par contre la valeur de `$NO_TIME_IS_NOW` vaut `0` et que release est introuvable dans les bases de données, il ne va rien afficher du tout.
 
 ---
 
-### RELEASE_MISSING_INSERT
+### NO_RELEASE_INSERT_NOW
 
-Si la valeur de `$RELEASE_MISSING_INSERT` vaut `1` et que la release est introuvable dans les bases de données,
+Si la valeur de `$NO_RELEASE_INSERT_NOW` vaut `1` et que la release est introuvable dans les bases de données,
 il va l'ajoute aux bases de données qui ont `$cfg['MySQL'][$m]['insert']` renseigné dans votre fichier config.php. Voir plus bas pour plus d'information.
 
-Si la valeur de `$RELEASE_MISSING_INSERT` vaut `0` et que la release est introuvable dans les bases de données, il ne l'ajoutera nulle part.
+Si la valeur de `$NO_RELEASE_INSERT_NOW` vaut `0` et que la release est introuvable dans les bases de données, il ne l'ajoutera nulle part.
 
 ---
 
-### RELEASE_MISSING_SECTION
+### NO_RELEASE_SECTION_NAME
 
-Si `$RELEASE_MISSING_INSERT` vaut 1, et que `$RELEASE_MISSING_SECTION` contient le nom de la section avec laquelle la release sera rajouter en SQL.
+Si `$NO_RELEASE_INSERT_NOW` vaut 1, et que `$NO_RELEASE_SECTION_NAME` contient le nom de la section avec laquelle la release sera rajouter en SQL.
 
 ---
 ### $cfg['MySQL']
@@ -112,7 +112,7 @@ Cette variable doit contenir la requête SELECT de SQL pour recuprer le pretime.
 
 #### $cfg['MySQL'][$m]['insert']
 
-Seul la variable `$cfg['MySQL'][$m]['insert']` est facultatif. si `$RELEASE_MISSING_INSERT` vaut `1` et que cette variable est renseigné, il va ajouter la release grâce à la requête SQL dans la ou les en base de données.
+Seul la variable `$cfg['MySQL'][$m]['insert']` est facultatif. si `$NO_RELEASE_INSERT_NOW` vaut `1` et que cette variable est renseigné, il va ajouter la release grâce à la requête SQL dans la ou les en base de données.
 Remarquer les **quatres** points d'interrogation ?
 
 Le premier, corresponds la colonne de temps.
