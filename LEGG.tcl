@@ -18,36 +18,40 @@ namespace eval ::LEGG {
 	}
 }
 
-proc ::LEGG::CORE { idx args } {
+proc ::LEGG::CORE {idx args} {
+	putlog "LEGG: -> $args"
+	set arg			[join $args]
+	set password	[lindex $arg 0]
+	set message		[lrange $arg 1 end]
 	variable CONF
-	set arg			[join ${args}]
-	set password	[lindex ${arg} 0]
-	set message		[lrange ${arg} 1 end]
-	if { [string match ${password} ${CONF(password)}] } {
-		putquick "PRIVMSG ${CONF(channel)} :${message}"   
-		putdcc ${idx} "OK: ${message}"
+	if { ![string match ${password} ${CONF(password)}] } {
+		set message_error "Bad password!"
+		putlog "LEGG: $message_error"
+		putdcc $idx "$message_error"
+		killdcc ${idx}
+		return
 	}
+	putnow "PRIVMSG ${CONF(channel)} :$message"
 	killdcc ${idx}
 }
-
 proc ::LEGG::slisten { idx } {
-	putlog "LEGG: Connection ${idx}"
-	putdcc ${idx} "Welcome"
+	putlog "LEGG: Connection $idx"
+	putdcc $idx "LEGG: Welcome"
 	control ${idx} ::LEGG::CORE
+	
 }
 
-proc ::LEGG::init {args} {
-	variable CONF
-	listen ${CONF(port)} script ::LEGG::slisten
-	putlog [format "Chargement de LEGG (%s) version %s by %s" ${::LEGG::SCRIPT(name)} ${::LEGG::SCRIPT(version)} ${::LEGG::SCRIPT(auteur)}]
+proc ::LEGG::init { } {
+    variable CONF
+    listen ${CONF(port)} script ::LEGG::slisten
+    putlog [format "Chargement de LEGG (%s) version %s by %s" ${::LEGG::SCRIPT(name)} ${::LEGG::SCRIPT(version)} ${::LEGG::SCRIPT(auteur)}]
 }
 
-proc ::LEGG::uninstall {args} {
+proc ::LEGG::uninstall { args } {
 	putlog [format "Désallocation des ressources de \002%s\002..." ${::LEGG::SCRIPT(name)}];
 	foreach binding [lsearch -inline -all -regexp [binds *[set ns [string range [namespace current] 2 end]]*] " \{?(::)?${ns}"] {
 		unbind [lindex ${binding} 0] [lindex ${binding} 1] [lindex ${binding} 2] [lindex ${binding} 4];
 	}
 	namespace delete ::LEGG
 }
-
 ::LEGG::init
